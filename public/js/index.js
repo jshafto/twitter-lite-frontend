@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem(
                     "TWITTER_LITE_ACCESS_TOKEN"
-                )}`,
+                  )}`,
             },
         });
         if (res.status === 401) {
@@ -13,10 +13,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         const { tweets } = await res.json();
 
+        console.log(tweets);
+
+
         const tweetsContainer = document.querySelector("#tweets-container");
         const tweetsHtml = tweets.map(
-            ({ message }) => `
+            ({ message, user: { username } }) => `
       <div class="card">
+        <div class="card-header">
+            ${username}
+        </div>
         <div class="card-body">
           <p class="card-text">${message}</p>
         </div>
