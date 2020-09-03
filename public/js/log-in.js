@@ -1,27 +1,22 @@
-const signUpForm = document.querySelector(".sign-up-form");
+const logInForm = document.querySelector(".log-in-form");
 
-signUpForm.addEventListener("submit", async (e) => {
+logInForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const formData = new FormData(signUpForm);
-
-  const username = formData.get("username");
+  const formData = new FormData(logInForm);
   const email = formData.get("email");
   const password = formData.get("password");
-
-  const body = { email, password, username };
+  const body = { email, password };
   try {
-    const res = await fetch("http://localhost:8080/users", {
+    const res = await fetch("http://localhost:8080/users/token", {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
       },
     });
-
     if (!res.ok) {
       throw res;
     }
-
     const {
       token,
       user: { id },
